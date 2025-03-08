@@ -1,156 +1,266 @@
-// Global styles
+/* Global styles */
 html, body {
   height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-// Dark theme styles
-.dark-theme {
-  // Base colors
+/* Dark theme variables and styles */
+body.dark-theme {
+  /* Base colors */
   --dark-bg-color: #121212;
   --dark-surface-color: #1e1e1e;
   --dark-card-color: #262626;
   --dark-primary-text: rgba(255, 255, 255, 0.87);
   --dark-secondary-text: rgba(255, 255, 255, 0.6);
   --dark-divider-color: rgba(255, 255, 255, 0.12);
-  --dark-primary-color: #7b1fa2; // Purple instead of default indigo
-  --dark-accent-color: #69f0ae; // Green accent that contrasts well
-  --dark-warn-color: #f44336;
+  --dark-primary-color: #bb86fc; /* Light purple for better visibility */
+  --dark-accent-color: #03dac6; /* Teal accent that contrasts well */
+  --dark-warn-color: #cf6679; /* Pinkish red for warnings */
   
-  // Page background
+  /* Page background */
   background-color: var(--dark-bg-color);
   color: var(--dark-primary-text);
-  
-  // Angular Material component overrides
+}
+
+/* Material component dark theme overrides for Angular 19 */
+body.dark-theme {
+  /* Cards */
   .mat-mdc-card {
-    background-color: var(--dark-card-color);
-    color: var(--dark-primary-text);
-    
-    .mat-mdc-card-subtitle {
-      color: var(--dark-secondary-text);
-    }
+    background-color: var(--dark-card-color) !important;
+    color: var(--dark-primary-text) !important;
   }
   
-  // Toolbar
+  .mat-mdc-card-subtitle {
+    color: var(--dark-secondary-text) !important;
+  }
+  
+  /* Toolbar */
   .mat-toolbar.mat-primary {
-    background-color: var(--dark-surface-color);
-    border-bottom: 1px solid var(--dark-divider-color);
+    background-color: var(--dark-surface-color) !important;
+    border-bottom: 1px solid var(--dark-divider-color) !important;
   }
   
-  // Sidenav
-  .mat-mdc-drawer, .mat-mdc-sidenav {
-    background-color: var(--dark-surface-color);
-    color: var(--dark-primary-text);
-    
-    .mat-divider {
-      border-color: var(--dark-divider-color);
-    }
-    
-    .mat-mdc-list-item {
-      color: var(--dark-primary-text);
-      
-      &.active {
-        background-color: rgba(123, 31, 162, 0.15); // Primary color with alpha
-        
-        .mat-icon {
-          color: var(--dark-primary-color);
-        }
-      }
-    }
+  /* Sidenav and sidebar */
+  .mat-drawer, .mat-sidenav {
+    background-color: var(--dark-surface-color) !important;
+    color: var(--dark-primary-text) !important;
   }
   
-  // Tables
-  .mat-mdc-table {
-    background-color: var(--dark-card-color);
-    
-    .mat-mdc-cell, .mat-mdc-header-cell {
-      color: var(--dark-primary-text);
-    }
+  .sidebar {
+    background-color: var(--dark-surface-color) !important;
+    color: var(--dark-primary-text) !important;
   }
   
-  // Form fields
-  .mat-mdc-form-field {
-    .mat-mdc-input-element {
-      color: var(--dark-primary-text);
-    }
-    
-    .mat-mdc-select-value, .mat-mdc-select-arrow {
-      color: var(--dark-primary-text);
-    }
-    
-    .mat-form-field-label {
-      color: var(--dark-secondary-text);
-    }
-    
-    .mat-form-field-underline {
-      background-color: var(--dark-divider-color);
-    }
+  /* List items and navigation */
+  .mat-nav-list a {
+    color: var(--dark-primary-text) !important;
   }
   
-  // Buttons
-  .mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-stroked-button {
+  .mat-nav-list .mat-list-item.active {
+    background-color: rgba(187, 134, 252, 0.15) !important;
+  }
+  
+  .mat-nav-list .mat-list-item.active .mat-icon {
+    color: var(--dark-primary-color) !important;
+  }
+  
+  .mat-list-item {
+    color: var(--dark-primary-text) !important;
+  }
+  
+  /* Dividers */
+  .mat-divider {
+    border-color: var(--dark-divider-color) !important;
+  }
+  
+  /* Buttons */
+  .mat-mdc-button,
+  .mat-mdc-raised-button,
+  .mat-mdc-outlined-button,
+  .mat-mdc-icon-button {
     &.mat-primary {
-      color: var(--dark-primary-color);
+      --mdc-filled-button-container-color: var(--dark-primary-color) !important;
+      --mdc-filled-button-label-text-color: black !important;
     }
     
     &.mat-accent {
-      color: var(--dark-accent-color);
+      --mdc-filled-button-container-color: var(--dark-accent-color) !important;
+      --mdc-filled-button-label-text-color: black !important;
+    }
+    
+    &.mat-warn {
+      --mdc-filled-button-container-color: var(--dark-warn-color) !important;
+      --mdc-filled-button-label-text-color: black !important;
     }
   }
   
-  // Charts and data visualization
+  /* Content areas */
+  .content {
+    background-color: var(--dark-bg-color) !important;
+  }
+  
+  .dashboard-content {
+    background-color: var(--dark-bg-color) !important;
+  }
+  
+  /* Icons */
+  .mat-icon {
+    color: var(--dark-primary-text) !important;
+  }
+  
+  /* Dashboard elements */
   .bar {
-    background-color: var(--dark-primary-color);
+    background-color: var(--dark-primary-color) !important;
   }
   
   .bar-label, .bar-value {
-    color: var(--dark-primary-text);
+    color: var(--dark-primary-text) !important;
   }
   
-  // Summary cards
+  /* Summary cards */
   .summary-card {
-    &.primary .card-icon {
-      color: var(--dark-primary-color);
-    }
-    
-    &.accent .card-icon {
-      color: var(--dark-accent-color);
-    }
-    
-    &.warn .card-icon {
-      color: var(--dark-warn-color);
-    }
-    
-    .card-content p {
-      color: var(--dark-secondary-text);
-    }
+    background-color: var(--dark-card-color) !important;
   }
   
-  // Dividers
-  .mat-divider {
-    border-color: var(--dark-divider-color);
+  .summary-card.primary .card-icon {
+    color: var(--dark-primary-color) !important;
   }
   
-  // User avatar - higher contrast in dark mode
+  .summary-card.accent .card-icon {
+    color: var(--dark-accent-color) !important;
+  }
+  
+  .summary-card.warn .card-icon {
+    color: var(--dark-warn-color) !important;
+  }
+  
+  .summary-card .card-content p {
+    color: var(--dark-secondary-text) !important;
+  }
+  
+  /* User avatar */
   .user-avatar {
-    background-color: var(--dark-primary-color);
-    color: white;
+    background-color: var(--dark-primary-color) !important;
+    color: black !important; /* Better contrast with light purple */
   }
   
-  // Notifications
+  /* Notifications */
+  .notification-item .mat-icon {
+    color: var(--dark-primary-color) !important;
+  }
+  
   .notification-item .notification-content p {
-    color: var(--dark-secondary-text);
+    color: var(--dark-secondary-text) !important;
   }
   
-  // Dialogs
-  .mat-mdc-dialog-container {
-    background-color: var(--dark-card-color);
-    color: var(--dark-primary-text);
+  /* Menus */
+  .mat-mdc-menu-panel {
+    background-color: var(--dark-card-color) !important;
   }
   
-  // Icons - ensure visibility
-  mat-icon {
-    color: var(--dark-primary-text);
+  .mat-mdc-menu-item {
+    color: var(--dark-primary-text) !important;
   }
+  
+  /* Chips */
+  .mat-mdc-chip {
+    background-color: var(--dark-surface-color) !important;
+    color: var(--dark-primary-text) !important;
+  }
+  
+  .mat-mdc-chip.mat-primary {
+    background-color: var(--dark-primary-color) !important;
+    color: black !important;
+  }
+  
+  .mat-mdc-chip.mat-accent {
+    background-color: var(--dark-accent-color) !important;
+    color: black !important;
+  }
+  
+  .mat-mdc-chip.mat-warn {
+    background-color: var(--dark-warn-color) !important;
+    color: black !important;
+  }
+  
+  /* Ensure mat-card content has proper background */
+  .mat-mdc-card-content {
+    background-color: var(--dark-card-color) !important;
+    color: var(--dark-primary-text) !important;
+  }
+}
+
+/* Fix for angular material high specificity */
+body.dark-theme {
+  .mdc-button .mdc-button__label {
+    color: inherit !important;
+  }
+  
+  .mdc-icon-button {
+    color: var(--dark-primary-text) !important;
+  }
+  
+  .mat-mdc-icon-button .mat-icon {
+    color: var(--dark-primary-text) !important;
+  }
+}
+
+/* Dashboard specific styles */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidenav-container {
+  flex: 1;
+  height: 100%;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+}
+
+.logo-container h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.bottom-controls {
+  margin-top: auto;
+  padding: 16px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #1976d2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
 }

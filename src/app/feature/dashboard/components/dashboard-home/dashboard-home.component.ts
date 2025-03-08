@@ -116,6 +116,15 @@ export class DashboardHomeComponent {
     // Component initialization logic
   }
   
+  ngAfterViewInit(): void {
+    // Force detection of theme changes
+    this.isDarkTheme$.subscribe(() => {
+      setTimeout(() => {
+        this.changeDetectorRef.detectChanges();
+      });
+    });
+  }
+  
   ngOnDestroy(): void {
     // Clean up event listeners
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
@@ -129,16 +138,28 @@ export class DashboardHomeComponent {
   }
   
   /**
-   * Get color for activity status
+   * Get color for activity status that's theme-aware
    * @param status The activity status
    * @returns Color string for the status
    */
   getStatusColor(status: string): string {
-    switch(status) {
-      case 'completed': return '#4caf50';
-      case 'processing': return '#2196f3';
-      case 'pending': return '#ff9800';
-      default: return '#9e9e9e';
+    // Check if dark theme is active by looking at body class
+    const isDarkTheme = document.body.classList.contains('dark-theme');
+    
+    if (isDarkTheme) {
+      switch(status) {
+        case 'completed': return '#69f0ae'; // Bright green for dark theme
+        case 'processing': return '#82b1ff'; // Bright blue for dark theme
+        case 'pending': return '#ffb74d'; // Bright orange for dark theme
+        default: return '#e0e0e0'; // Light gray for dark theme
+      }
+    } else {
+      switch(status) {
+        case 'completed': return '#4caf50'; // Regular green
+        case 'processing': return '#2196f3'; // Regular blue
+        case 'pending': return '#ff9800'; // Regular orange
+        default: return '#9e9e9e'; // Regular gray
+      }
     }
   }
   
@@ -154,6 +175,29 @@ export class DashboardHomeComponent {
       case 'support': return 'support_agent';
       case 'payment': return 'payments';
       default: return 'info';
+    }
+  }
+  
+  /**
+   * Get background color for pie chart segments based on theme
+   * @param name The segment name
+   * @returns Color code
+   */
+  getPieChartColor(name: string): string {
+    const isDarkTheme = document.body.classList.contains('dark-theme');
+    
+    if (isDarkTheme) {
+      switch(name) {
+        case 'Productos': return '#bb86fc';
+        case 'Servicios': return '#03dac6';
+        default: return '#ffb74d';
+      }
+    } else {
+      switch(name) {
+        case 'Productos': return '#3f51b5';
+        case 'Servicios': return '#ff4081';
+        default: return '#ffd740';
+      }
     }
   }
 }
