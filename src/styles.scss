@@ -1,0 +1,156 @@
+// Global styles
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// Dark theme styles
+.dark-theme {
+  // Base colors
+  --dark-bg-color: #121212;
+  --dark-surface-color: #1e1e1e;
+  --dark-card-color: #262626;
+  --dark-primary-text: rgba(255, 255, 255, 0.87);
+  --dark-secondary-text: rgba(255, 255, 255, 0.6);
+  --dark-divider-color: rgba(255, 255, 255, 0.12);
+  --dark-primary-color: #7b1fa2; // Purple instead of default indigo
+  --dark-accent-color: #69f0ae; // Green accent that contrasts well
+  --dark-warn-color: #f44336;
+  
+  // Page background
+  background-color: var(--dark-bg-color);
+  color: var(--dark-primary-text);
+  
+  // Angular Material component overrides
+  .mat-mdc-card {
+    background-color: var(--dark-card-color);
+    color: var(--dark-primary-text);
+    
+    .mat-mdc-card-subtitle {
+      color: var(--dark-secondary-text);
+    }
+  }
+  
+  // Toolbar
+  .mat-toolbar.mat-primary {
+    background-color: var(--dark-surface-color);
+    border-bottom: 1px solid var(--dark-divider-color);
+  }
+  
+  // Sidenav
+  .mat-mdc-drawer, .mat-mdc-sidenav {
+    background-color: var(--dark-surface-color);
+    color: var(--dark-primary-text);
+    
+    .mat-divider {
+      border-color: var(--dark-divider-color);
+    }
+    
+    .mat-mdc-list-item {
+      color: var(--dark-primary-text);
+      
+      &.active {
+        background-color: rgba(123, 31, 162, 0.15); // Primary color with alpha
+        
+        .mat-icon {
+          color: var(--dark-primary-color);
+        }
+      }
+    }
+  }
+  
+  // Tables
+  .mat-mdc-table {
+    background-color: var(--dark-card-color);
+    
+    .mat-mdc-cell, .mat-mdc-header-cell {
+      color: var(--dark-primary-text);
+    }
+  }
+  
+  // Form fields
+  .mat-mdc-form-field {
+    .mat-mdc-input-element {
+      color: var(--dark-primary-text);
+    }
+    
+    .mat-mdc-select-value, .mat-mdc-select-arrow {
+      color: var(--dark-primary-text);
+    }
+    
+    .mat-form-field-label {
+      color: var(--dark-secondary-text);
+    }
+    
+    .mat-form-field-underline {
+      background-color: var(--dark-divider-color);
+    }
+  }
+  
+  // Buttons
+  .mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-stroked-button {
+    &.mat-primary {
+      color: var(--dark-primary-color);
+    }
+    
+    &.mat-accent {
+      color: var(--dark-accent-color);
+    }
+  }
+  
+  // Charts and data visualization
+  .bar {
+    background-color: var(--dark-primary-color);
+  }
+  
+  .bar-label, .bar-value {
+    color: var(--dark-primary-text);
+  }
+  
+  // Summary cards
+  .summary-card {
+    &.primary .card-icon {
+      color: var(--dark-primary-color);
+    }
+    
+    &.accent .card-icon {
+      color: var(--dark-accent-color);
+    }
+    
+    &.warn .card-icon {
+      color: var(--dark-warn-color);
+    }
+    
+    .card-content p {
+      color: var(--dark-secondary-text);
+    }
+  }
+  
+  // Dividers
+  .mat-divider {
+    border-color: var(--dark-divider-color);
+  }
+  
+  // User avatar - higher contrast in dark mode
+  .user-avatar {
+    background-color: var(--dark-primary-color);
+    color: white;
+  }
+  
+  // Notifications
+  .notification-item .notification-content p {
+    color: var(--dark-secondary-text);
+  }
+  
+  // Dialogs
+  .mat-mdc-dialog-container {
+    background-color: var(--dark-card-color);
+    color: var(--dark-primary-text);
+  }
+  
+  // Icons - ensure visibility
+  mat-icon {
+    color: var(--dark-primary-text);
+  }
+}

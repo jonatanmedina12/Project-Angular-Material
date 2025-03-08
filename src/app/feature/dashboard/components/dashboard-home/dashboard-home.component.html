@@ -1,0 +1,204 @@
+<div class="dashboard-container" [class.dark-theme]="isDarkTheme$ | async">
+    <mat-sidenav-container class="sidenav-container">
+      <!-- Menú lateral -->
+      <mat-sidenav #sidenav mode="side" [opened]="!mobileQuery.matches" class="sidebar">
+        <div class="logo-container">
+          <img src="assets/logo.png" alt="Logo" class="logo">
+          <h1>Mi Dashboard</h1>
+        </div>
+        
+        <mat-nav-list>
+          <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+            <mat-icon>dashboard</mat-icon>
+            <span>Panel Principal</span>
+          </a>
+          <a mat-list-item routerLink="/users" routerLinkActive="active">
+            <mat-icon>people</mat-icon>
+            <span>Usuarios</span>
+          </a>
+          <a mat-list-item routerLink="/products" routerLinkActive="active">
+            <mat-icon>inventory_2</mat-icon>
+            <span>Productos</span>
+          </a>
+          <a mat-list-item routerLink="/orders" routerLinkActive="active">
+            <mat-icon>shopping_cart</mat-icon>
+            <span>Pedidos</span>
+          </a>
+          <a mat-list-item routerLink="/reports" routerLinkActive="active">
+            <mat-icon>bar_chart</mat-icon>
+            <span>Informes</span>
+          </a>
+          <a mat-list-item routerLink="/settings" routerLinkActive="active">
+            <mat-icon>settings</mat-icon>
+            <span>Configuración</span>
+          </a>
+        </mat-nav-list>
+        
+        <div class="bottom-controls">
+          <mat-divider></mat-divider>
+          <button mat-button (click)="toggleTheme()">
+            <mat-icon>{{ (isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
+            <span>{{ (isDarkTheme$ | async) ? 'Tema Claro' : 'Tema Oscuro' }}</span>
+          </button>
+        </div>
+      </mat-sidenav>
+      
+      <!-- Contenido principal -->
+      <mat-sidenav-content class="content">
+        <mat-toolbar color="primary">
+          <button mat-icon-button (click)="sidenav.toggle()" *ngIf="mobileQuery.matches">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <span class="page-title">Panel Principal</span>
+          <span class="spacer"></span>
+          
+          <!-- Controles en la barra superior -->
+          <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" aria-label="Notifications">
+            <mat-icon [matBadge]="3" matBadgeColor="warn">notifications</mat-icon>
+          </button>
+          <mat-menu #notificationsMenu="matMenu">
+            <div class="notification-item">
+              <mat-icon>shopping_cart</mat-icon>
+              <div class="notification-content">
+                <h4>Nuevo pedido recibido</h4>
+                <p>Pedido #3429 - Hace 5 minutos</p>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="notification-item">
+              <mat-icon>support_agent</mat-icon>
+              <div class="notification-content">
+                <h4>Nuevo ticket de soporte</h4>
+                <p>Ticket #2178 - Hace 1 hora</p>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="notification-item">
+              <mat-icon>people</mat-icon>
+              <div class="notification-content">
+                <h4>Usuario nuevo registrado</h4>
+                <p>Ana López - Hace 3 horas</p>
+              </div>
+            </div>
+            <button mat-menu-item routerLink="/notifications">Ver todas</button>
+          </mat-menu>
+          
+          <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">
+            <div class="user-avatar">JD</div>
+          </button>
+          <mat-menu #userMenu="matMenu">
+            <button mat-menu-item routerLink="/profile">
+              <mat-icon>account_circle</mat-icon>
+              <span>Mi Perfil</span>
+            </button>
+            <button mat-menu-item routerLink="/settings">
+              <mat-icon>settings</mat-icon>
+              <span>Configuración</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item routerLink="/logout">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>Cerrar Sesión</span>
+            </button>
+          </mat-menu>
+        </mat-toolbar>
+        
+        <!-- Contenido del Dashboard -->
+        <div class="dashboard-content">
+          <!-- Tarjetas de Resumen -->
+          <div class="summary-cards">
+            <mat-card *ngFor="let card of summaryCards" class="summary-card" [ngClass]="card.color">
+              <mat-card-content>
+                <div class="card-icon">
+                  <mat-icon>{{card.icon}}</mat-icon>
+                </div>
+                <div class="card-content">
+                  <h2>{{card.value}}</h2>
+                  <p>{{card.title}}</p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          
+          <!-- Gráficos -->
+          <div class="charts-container">
+            <mat-card class="chart-card">
+              <mat-card-header>
+                <mat-card-title>Ventas Mensuales</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <!-- Aquí iría el gráfico de barras usando bibliotecas como ngx-charts -->
+                <div class="chart-placeholder">
+                  <div *ngFor="let item of barChartData" class="bar-chart-item">
+                    <div class="bar-label">{{item.name}}</div>
+                    <div class="bar" [style.height.%]="item.value"></div>
+                    <div class="bar-value">{{item.value}}</div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            
+            <mat-card class="chart-card">
+              <mat-card-header>
+                <mat-card-title>Distribución de Ventas</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <!-- Aquí iría el gráfico de pastel usando bibliotecas como ngx-charts -->
+                <div class="chart-placeholder pie-chart">
+                  <div class="pie-segments">
+                    <!-- Simplificación visual para representar el gráfico de pastel -->
+                    <div class="pie-segment" style="transform: rotate(0deg); background-color: #3f51b5; clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%)"></div>
+                    <div class="pie-segment" style="transform: rotate(90deg); background-color: #ff4081; clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 25%)"></div>
+                    <div class="pie-segment" style="transform: rotate(135deg); background-color: #ffd740; clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 20%)"></div>
+                  </div>
+                  <div class="pie-legend">
+                    <div *ngFor="let item of pieChartData" class="legend-item">
+                      <div class="legend-color" [ngStyle]="{'background-color': item.name === 'Productos' ? '#3f51b5' : item.name === 'Servicios' ? '#ff4081' : '#ffd740'}"></div>
+                      <div class="legend-label">{{item.name}}: {{item.value}}</div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          
+          <!-- Actividad Reciente -->
+          <mat-card class="activity-card">
+            <mat-card-header>
+              <mat-card-title>Actividad Reciente</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-list>
+                <mat-list-item *ngFor="let activity of recentActivities">
+                  <mat-icon matListItemIcon [ngStyle]="{'color': getStatusColor(activity.status)}">{{getIconForActivity(activity.type)}}</mat-icon>
+                  <div matListItemTitle>{{activity.description}}</div>
+                  <div matListItemLine>{{activity.date | date:'medium'}}</div>
+                  <div matListItemMeta>
+                    <mat-chip [color]="activity.status === 'completed' ? 'primary' : activity.status === 'processing' ? 'accent' : 'warn'" selected>
+                      {{activity.status}}
+                    </mat-chip>
+                  </div>
+                </mat-list-item>
+              </mat-list>
+            </mat-card-content>
+            <mat-card-actions align="end">
+              <button mat-button color="primary">Ver todo</button>
+            </mat-card-actions>
+          </mat-card>
+          
+          <!-- Acciones Rápidas -->
+          <div class="quick-actions">
+            <button mat-raised-button color="primary">
+              <mat-icon>add</mat-icon> Nuevo Pedido
+            </button>
+            <button mat-raised-button color="accent">
+              <mat-icon>person_add</mat-icon> Añadir Usuario
+            </button>
+            <button mat-raised-button color="warn">
+              <mat-icon>report</mat-icon> Generar Informe
+            </button>
+          </div>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
